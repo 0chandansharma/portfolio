@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaRocket, FaBrain, FaLaptopCode } from 'react-icons/fa';
 import SectionTitle from '../shared/SectionTitle';
+import AboutImageGallery from './AboutImageGallery';
 import useScrollAnimation from '../../hooks/useScrollAnimation';
 
 const About = () => {
@@ -39,8 +40,9 @@ const About = () => {
             }
           }}
         >
+          {/* Replace your single image with the gallery component */}
           <motion.div 
-            className="about-image"
+            className="about-image-gallery-wrapper"
             variants={{
               hidden: { opacity: 0, x: -50 },
               visible: { 
@@ -50,7 +52,7 @@ const About = () => {
               }
             }}
           >
-            <img src="/assets/images/about-me.jpg" alt="About Chandan" />
+            <AboutImageGallery />
           </motion.div>
           
           <div className="about-text">

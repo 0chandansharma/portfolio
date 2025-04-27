@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBriefcase, FaGraduationCap, FaCalendarAlt, FaChevronRight, FaTimes, FaBuilding, FaMapMarkerAlt, FaLink, FaAward } from 'react-icons/fa';
+import { FaBriefcase, FaGraduationCap, FaCalendarAlt, FaChevronRight, FaTimes, FaBuilding, FaMapMarkerAlt, FaLink, FaAward, FaExternalLinkAlt } from 'react-icons/fa';
 import SectionTitle from '../shared/SectionTitle';
 import useScrollAnimation from '../../hooks/useScrollAnimation';
 import { workExperience, education } from '../../data/experience';
@@ -9,7 +9,7 @@ const Experience = () => {
   const [ref, controls] = useScrollAnimation();
   const [activeTab, setActiveTab] = useState('work');
   const [selectedItem, setSelectedItem] = useState(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredTechStack, setHoveredTechStack] = useState(null);
   const modalRef = useRef(null);
   
   const tabs = [
@@ -44,6 +44,15 @@ const Experience = () => {
     initial: { left: 0 },
     work: { left: '0%' },
     education: { left: '50%' },
+  };
+
+  // Show all technologies on hover
+  const handleTechStackHover = (index) => {
+    setHoveredTechStack(index);
+  };
+
+  const handleTechStackLeave = () => {
+    setHoveredTechStack(null);
   };
 
   return (
@@ -81,11 +90,11 @@ const Experience = () => {
           </div>
         </motion.div>
         
-        <div className="timeline-container">
+        <div className="experience-cards">
           <AnimatePresence mode="wait">
             <motion.div 
               key={activeTab}
-              className="timeline"
+              className="experience-grid"
               ref={ref}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -95,37 +104,29 @@ const Experience = () => {
               {experienceData[activeTab].map((item, index) => (
                 <motion.div 
                   key={item.id}
-                  className="timeline-item"
+                  className="experience-card"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  whileHover={{ y: -10, boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)' }}
                 >
-                  <motion.div 
-                    className="timeline-dot"
-                    animate={{ 
-                      scale: hoveredIndex === index ? 1.2 : 1,
-                      backgroundColor: hoveredIndex === index ? 'var(--primary-color-light)' : 'var(--primary-color)'
-                    }}
-                  />
-                  
-                  <motion.div 
-                    className="timeline-content"
-                    whileHover={{ 
-                      y: -5,
-                      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-                      borderColor: 'var(--primary-color)'
-                    }}
-                  >
-                    <div className="timeline-date">
-                      <FaCalendarAlt /> {item.duration}
-                    </div>
-                    
-                    <div className="timeline-header">
-                      <h3 className="timeline-title">{item.title}</h3>
-                      <div className="timeline-subtitle">
+                  <div className="experience-card-header">
+                    {item.logo && (
+                      <div className="organization-logo">
+                        <img
+                          src={`${process.env.PUBLIC_URL}${item.logo}`}
+                          alt={item.company || item.institution}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = `${process.env.PUBLIC_URL}/assets/logos/placeholder.svg`;
+                          }}
+                        />
+                      </div>
+                    )}
+                    <div className="experience-header-content">
+                      <h3 className="experience-title">{item.title}</h3>
+                      <div className="experience-subtitle">
                         <span className="organization">
                           <FaBuilding /> {item.company || item.institution}
                         </span>
@@ -134,32 +135,65 @@ const Experience = () => {
                         </span>
                       </div>
                     </div>
+                  </div>
+                  
+                  <div className="experience-card-body">
+                    <div className="experience-duration">
+                      <FaCalendarAlt /> {item.duration}
+                    </div>
                     
-                    <p className="timeline-description">{item.description}</p>
+                    <p className="experience-description">{item.description}</p>
                     
-                    {/* Show 2 highlights in the timeline view */}
-                    {item.details && item.details.length > 0 && (
-                      <div className="timeline-highlights">
-                        <h4>Key Highlights:</h4>
-                        <ul>
-                          {item.details.slice(0, 2).map((detail, idx) => (
-                            <li key={idx}>
-                              <FaAward className="highlight-icon" />
-                              {detail}
-                            </li>
+                    {item.technologies && item.technologies.length > 0 && (
+                      <div className="tech-stack-container">
+                        <div className="tech-stack-label">Technologies:</div>
+                        <div className="tech-stack">
+                          {item.technologies.slice(0, 3).map((tech, i) => (
+                            <span key={i} className="tech-tag">{tech}</span>
                           ))}
-                        </ul>
+                          
+                          {item.technologies.length > 3 && (
+                            <div 
+                              className="tech-more"
+                              onMouseEnter={() => handleTechStackHover(index)}
+                              onMouseLeave={handleTechStackLeave}
+                            >
+                              +{item.technologies.length - 3}
+                              
+                              {hoveredTechStack === index && (
+                                <div className="tech-stack-tooltip">
+                                  {item.technologies.slice(3).map((tech, i) => (
+                                    <span key={i} className="tooltip-tech">{tech}</span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
                       </div>
+                    )}
+                  </div>
+                  
+                  <div className="experience-card-footer">
+                    {item.link && (
+                      <a 
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="organization-link"
+                      >
+                        Visit <FaExternalLinkAlt />
+                      </a>
                     )}
                     
                     <motion.button 
-                      className="timeline-details-btn"
+                      className="details-button"
                       onClick={() => handleItemClick(item)}
                       whileHover={{ x: 5 }}
                     >
-                      View Full Details <FaChevronRight />
+                      View Details <FaChevronRight />
                     </motion.button>
-                  </motion.div>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
@@ -206,6 +240,19 @@ const Experience = () => {
                       </span>
                     </div>
                   </div>
+                  
+                  {selectedItem.logo && (
+                    <div className="modal-logo">
+                      <img
+                        src={`${process.env.PUBLIC_URL}${selectedItem.logo}`}
+                        alt={selectedItem.company || selectedItem.institution}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `${process.env.PUBLIC_URL}/assets/logos/placeholder.svg`;
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
                 
                 <div className="modal-body">
@@ -233,7 +280,7 @@ const Experience = () => {
                     </div>
                   )}
                   
-                  {selectedItem.technologies && (
+                  {selectedItem.technologies && selectedItem.technologies.length > 0 && (
                     <div className="modal-technologies">
                       <h3>Technologies Used</h3>
                       <div className="tech-tags">
@@ -252,7 +299,7 @@ const Experience = () => {
                         rel="noopener noreferrer"
                         className="link-button"
                       >
-                        <FaLink /> View More Information
+                        <FaLink /> Visit Organization Website
                       </a>
                     </div>
                   )}
