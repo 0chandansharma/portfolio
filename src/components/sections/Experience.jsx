@@ -9,7 +9,6 @@ const Experience = () => {
   const [ref, controls] = useScrollAnimation();
   const [activeTab, setActiveTab] = useState('work');
   const [selectedItem, setSelectedItem] = useState(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const modalRef = useRef(null);
   
   const tabs = [
@@ -24,22 +23,20 @@ const Experience = () => {
   
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+    document.body.style.overflow = 'hidden';
   };
   
   const closeModal = () => {
     setSelectedItem(null);
-    document.body.style.overflow = 'auto'; // Re-enable scrolling
+    document.body.style.overflow = 'auto';
   };
   
-  // Close modal when clicking outside
   const handleModalClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeModal();
     }
   };
 
-  // For tab indicator animation
   const tabIndicatorVariants = {
     initial: { left: 0 },
     work: { left: '0%' },
@@ -81,90 +78,76 @@ const Experience = () => {
           </div>
         </motion.div>
         
-        <div className="timeline-container">
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={activeTab}
-              className="timeline"
-              ref={ref}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              {experienceData[activeTab].map((item, index) => (
-                <motion.div 
-                  key={item.id}
-                  className="timeline-item"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                >
-                  <motion.div 
-                    className="timeline-dot"
-                    animate={{ 
-                      scale: hoveredIndex === index ? 1.2 : 1,
-                      backgroundColor: hoveredIndex === index ? 'var(--primary-color-light)' : 'var(--primary-color)'
-                    }}
-                  />
-                  
-                  <motion.div 
-                    className="timeline-content"
-                    whileHover={{ 
-                      y: -5,
-                      boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-                      borderColor: 'var(--primary-color)'
-                    }}
-                  >
-                    <div className="timeline-date">
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeTab}
+            className="experience-cards"
+            ref={ref}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {experienceData[activeTab].map((item, index) => (
+              <motion.div 
+                key={item.id}
+                className="experience-card"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ 
+                  y: -5,
+                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
+                }}
+              >
+                <div className="experience-card-header">
+                  <div className="experience-card-icon">
+                    {activeTab === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
+                  </div>
+                  <div className="experience-card-title">
+                    <h3>{item.title}</h3>
+                    <p className="experience-card-company">
+                      <FaBuilding /> {item.company || item.institution}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="experience-card-body">
+                  <div className="experience-card-info">
+                    <span className="experience-card-date">
                       <FaCalendarAlt /> {item.duration}
-                    </div>
-                    
-                    <div className="timeline-header">
-                      <h3 className="timeline-title">{item.title}</h3>
-                      <div className="timeline-subtitle">
-                        <span className="organization">
-                          <FaBuilding /> {item.company || item.institution}
-                        </span>
-                        <span className="location">
-                          <FaMapMarkerAlt /> {item.location}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <p className="timeline-description">{item.description}</p>
-                    
-                    {/* Show 2 highlights in the timeline view */}
-                    {item.details && item.details.length > 0 && (
-                      <div className="timeline-highlights">
-                        <h4>Key Highlights:</h4>
-                        <ul>
-                          {item.details.slice(0, 2).map((detail, idx) => (
-                            <li key={idx}>
-                              <FaAward className="highlight-icon" />
-                              {detail}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                    </span>
+                    <span className="experience-card-location">
+                      <FaMapMarkerAlt /> {item.location}
+                    </span>
+                  </div>
+                  
+                  <p className="experience-card-description">{item.description}</p>
+                  
+                  <div className="experience-card-skills">
+                    {item.technologies && item.technologies.slice(0, 3).map((tech, i) => (
+                      <span key={i} className="experience-card-skill">{tech}</span>
+                    ))}
+                    {item.technologies && item.technologies.length > 3 && (
+                      <span className="experience-card-skill-more">+{item.technologies.length - 3}</span>
                     )}
-                    
-                    <motion.button 
-                      className="timeline-details-btn"
-                      onClick={() => handleItemClick(item)}
-                      whileHover={{ x: 5 }}
-                    >
-                      View Full Details <FaChevronRight />
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+                  </div>
+                </div>
+                
+                <div className="experience-card-footer">
+                  <motion.button 
+                    className="experience-card-details-btn"
+                    onClick={() => handleItemClick(item)}
+                    whileHover={{ x: 5 }}
+                  >
+                    View Details <FaChevronRight />
+                  </motion.button>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
         
         <AnimatePresence>
           {selectedItem && (

@@ -33,3 +33,22 @@ const useTheme = () => {
 };
 
 export default useTheme;
+
+
+// import { useState, useEffect } from 'react';
+
+// const useTheme = () => {
+//   // Always set dark theme as default
+//   const [theme] = useState('dark');
+  
+//   useEffect(() => {
+//     // Always apply dark theme
+//     document.body.classList.add('dark-theme');
+//     localStorage.setItem('theme', 'dark');
+//   }, []);
+  
+//   // No toggle function needed since we're always in dark mode
+//   return { theme };
+// };
+
+// export default useThe
