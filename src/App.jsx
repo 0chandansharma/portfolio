@@ -8,6 +8,7 @@ import Projects from './components/sections/Projects';
 import Certifications from './components/sections/Certifications';
 import Blog from './components/sections/Blog';
 import Contact from './components/sections/Contact';
+import ThemeProvider from './context/ThemeProvider';
 import { FaArrowUp } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -35,32 +36,35 @@ function App() {
   };
 
   return (
-    <Layout>
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Certifications />
-      <Blog />
-      <Contact />
-      
-      <AnimatePresence>
-        {showScrollTop && (
-          <motion.button
-            className="scroll-top-btn"
-            onClick={scrollToTop}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <FaArrowUp />
-          </motion.button>
-        )}
-      </AnimatePresence>
-    </Layout>
+    <ThemeProvider defaultTheme="light">
+      <Layout>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Certifications />
+        <Blog />
+        <Contact />
+        
+        <AnimatePresence>
+          {showScrollTop && (
+            <motion.button
+              className="scroll-top-btn"
+              onClick={scrollToTop}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label="Scroll to top"
+            >
+              <FaArrowUp />
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </Layout>
+    </ThemeProvider>
   );
 }
 

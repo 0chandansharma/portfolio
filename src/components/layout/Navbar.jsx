@@ -14,6 +14,7 @@ import {
   FaEnvelope 
 } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
+import ThemeToggle from '../shared/ThemeToggle';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -138,21 +139,25 @@ const Navbar = () => {
       
       <div className="container navbar-content">
         <motion.div 
-          className="logo"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <Link to="hero" smooth={true} duration={500}>
-            <div className="logo-container">
-              <FaBrain className="logo-icon" />
-              <div className="logo-text">
-                <span className="logo-name">Chandan</span>
-                <span className="logo-surname">Sharma</span>
-              </div>
-            </div>
-          </Link>
-        </motion.div>
+                  className="logo"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                  <Link to="hero" smooth={true} duration={500}>
+                    <div className="logo-container">
+                      <FaBrain className="logo-icon" />
+                      <motion.div 
+                        className="signature-text"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.5, duration: 0.8 }}
+                      >
+                        Chandan Sharma
+                      </motion.div>
+                    </div>
+                  </Link>
+                </motion.div>
 
         <div className="nav-right">
           <div className="desktop-menu">
@@ -189,6 +194,9 @@ const Navbar = () => {
             ))}
           </div>
           
+          {/* Theme Toggle Button */}
+          {/* <ThemeToggle />
+          
           <motion.div 
             className="mobile-menu-toggle"
             initial={{ opacity: 0 }}
@@ -207,7 +215,7 @@ const Navbar = () => {
                 {menuOpen ? <FaTimes /> : <FaBars />}
               </motion.div>
             </button>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
 
