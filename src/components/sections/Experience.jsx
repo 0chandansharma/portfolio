@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBriefcase, FaGraduationCap, FaCalendarAlt, FaChevronRight, FaTimes, FaBuilding, FaMapMarkerAlt, FaLink, FaAward } from 'react-icons/fa';
+import { FaBriefcase, FaGraduationCap, FaCalendarAlt, FaChevronRight, FaTimes, FaBuilding, FaMapMarkerAlt, FaLink, FaAward, FaExternalLinkAlt } from 'react-icons/fa';
 import SectionTitle from '../shared/SectionTitle';
 import useScrollAnimation from '../../hooks/useScrollAnimation';
 import { workExperience, education } from '../../data/experience';
@@ -9,6 +9,7 @@ const Experience = () => {
   const [ref, controls] = useScrollAnimation();
   const [activeTab, setActiveTab] = useState('work');
   const [selectedItem, setSelectedItem] = useState(null);
+  const [hoveredTechStack, setHoveredTechStack] = useState(null);
   const modalRef = useRef(null);
   
   const tabs = [
@@ -23,24 +24,35 @@ const Experience = () => {
   
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
   };
   
   const closeModal = () => {
     setSelectedItem(null);
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
   };
   
+  // Close modal when clicking outside
   const handleModalClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeModal();
     }
   };
 
+  // For tab indicator animation
   const tabIndicatorVariants = {
     initial: { left: 0 },
     work: { left: '0%' },
     education: { left: '50%' },
+  };
+
+  // Show all technologies on hover
+  const handleTechStackHover = (index) => {
+    setHoveredTechStack(index);
+  };
+
+  const handleTechStackLeave = () => {
+    setHoveredTechStack(null);
   };
 
   return (
@@ -78,76 +90,115 @@ const Experience = () => {
           </div>
         </motion.div>
         
-        <AnimatePresence mode="wait">
-          <motion.div 
-            key={activeTab}
-            className="experience-cards"
-            ref={ref}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {experienceData[activeTab].map((item, index) => (
-              <motion.div 
-                key={item.id}
-                className="experience-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ 
-                  y: -5,
-                  boxShadow: '0 10px 25px rgba(0, 0, 0, 0.2)',
-                }}
-              >
-                <div className="experience-card-header">
-                  <div className="experience-card-icon">
-                    {activeTab === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
+        <div className="experience-cards">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeTab}
+              className="experience-grid"
+              ref={ref}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+            >
+              {experienceData[activeTab].map((item, index) => (
+                <motion.div 
+                  key={item.id}
+                  className="experience-card"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -10, boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)' }}
+                >
+                  <div className="experience-card-header">
+                    {item.logo && (
+                      <div className="organization-logo">
+                        <img
+                          src={`${process.env.PUBLIC_URL}${item.logo}`}
+                          alt={item.company || item.institution}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = `${process.env.PUBLIC_URL}/assets/logos/placeholder.svg`;
+                          }}
+                        />
+                      </div>
+                    )}
+                    <div className="experience-header-content">
+                      <h3 className="experience-title">{item.title}</h3>
+                      <div className="experience-subtitle">
+                        <span className="organization">
+                          <FaBuilding /> {item.company || item.institution}
+                        </span>
+                        <span className="location">
+                          <FaMapMarkerAlt /> {item.location}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="experience-card-title">
-                    <h3>{item.title}</h3>
-                    <p className="experience-card-company">
-                      <FaBuilding /> {item.company || item.institution}
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="experience-card-body">
-                  <div className="experience-card-info">
-                    <span className="experience-card-date">
+                  
+                  <div className="experience-card-body">
+                    <div className="experience-duration">
                       <FaCalendarAlt /> {item.duration}
-                    </span>
-                    <span className="experience-card-location">
-                      <FaMapMarkerAlt /> {item.location}
-                    </span>
-                  </div>
-                  
-                  <p className="experience-card-description">{item.description}</p>
-                  
-                  <div className="experience-card-skills">
-                    {item.technologies && item.technologies.slice(0, 3).map((tech, i) => (
-                      <span key={i} className="experience-card-skill">{tech}</span>
-                    ))}
-                    {item.technologies && item.technologies.length > 3 && (
-                      <span className="experience-card-skill-more">+{item.technologies.length - 3}</span>
+                    </div>
+                    
+                    <p className="experience-description">{item.description}</p>
+                    
+                    {item.technologies && item.technologies.length > 0 && (
+                      <div className="tech-stack-container">
+                        <div className="tech-stack-label">Technologies:</div>
+                        <div className="tech-stack">
+                          {item.technologies.slice(0, 3).map((tech, i) => (
+                            <span key={i} className="tech-tag">{tech}</span>
+                          ))}
+                          
+                          {item.technologies.length > 3 && (
+                            <div 
+                              className="tech-more"
+                              onMouseEnter={() => handleTechStackHover(index)}
+                              onMouseLeave={handleTechStackLeave}
+                            >
+                              +{item.technologies.length - 3}
+                              
+                              {hoveredTechStack === index && (
+                                <div className="tech-stack-tooltip">
+                                  {item.technologies.slice(3).map((tech, i) => (
+                                    <span key={i} className="tooltip-tech">{tech}</span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     )}
                   </div>
-                </div>
-                
-                <div className="experience-card-footer">
-                  <motion.button 
-                    className="experience-card-details-btn"
-                    onClick={() => handleItemClick(item)}
-                    whileHover={{ x: 5 }}
-                  >
-                    View Details <FaChevronRight />
-                  </motion.button>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+                  
+                  <div className="experience-card-footer">
+                    {item.link && (
+                      <a 
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="organization-link"
+                      >
+                        Visit <FaExternalLinkAlt />
+                      </a>
+                    )}
+                    
+                    <motion.button 
+                      className="details-button"
+                      onClick={() => handleItemClick(item)}
+                      whileHover={{ x: 5 }}
+                    >
+                      View Details <FaChevronRight />
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
         
         <AnimatePresence>
           {selectedItem && (
@@ -189,6 +240,19 @@ const Experience = () => {
                       </span>
                     </div>
                   </div>
+                  
+                  {selectedItem.logo && (
+                    <div className="modal-logo">
+                      <img
+                        src={`${process.env.PUBLIC_URL}${selectedItem.logo}`}
+                        alt={selectedItem.company || selectedItem.institution}
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `${process.env.PUBLIC_URL}/assets/logos/placeholder.svg`;
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
                 
                 <div className="modal-body">
@@ -216,7 +280,7 @@ const Experience = () => {
                     </div>
                   )}
                   
-                  {selectedItem.technologies && (
+                  {selectedItem.technologies && selectedItem.technologies.length > 0 && (
                     <div className="modal-technologies">
                       <h3>Technologies Used</h3>
                       <div className="tech-tags">
@@ -235,7 +299,7 @@ const Experience = () => {
                         rel="noopener noreferrer"
                         className="link-button"
                       >
-                        <FaLink /> View More Information
+                        <FaLink /> Visit Organization Website
                       </a>
                     </div>
                   )}
