@@ -4,7 +4,7 @@ const platformProjects = [
     id: 1,
     title: 'oneDAL ARM Optimization',
     description: 'Optimized Intel oneDAL for ARM processor, achieving 10x to 200x performance improvement in machine learning workloads.',
-    image: '/assets/images/projects/project1.jpg',
+    image: '/assets/images/projects/project1.png',
     screenshots: [
       '/assets/images/projects/screenshots/onedal-arm.jpg',
       '/assets/images/projects/screenshots/onedal-arm-results.jpg',

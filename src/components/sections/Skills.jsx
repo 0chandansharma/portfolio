@@ -12,7 +12,7 @@ import SectionTitle from '../shared/SectionTitle';
 import useScrollAnimation from '../../hooks/useScrollAnimation';
 
 // Import skill logos - these would be replaced with your actual imports
-// Example: import PythonLogo from '../../assets/logos/python.svg';
+// Example: import PythonLogo from '../../assets/images/Tech/python.png';
 
 const Skills = () => {
   const [ref, controls] = useScrollAnimation();
@@ -66,7 +66,7 @@ const Skills = () => {
         name: 'Python', 
         level: 'Expert', 
         percentage: 90,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/python.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/python.png`,
         description: 'Primary language for ML/AI development, data analysis, and automation.',
         years: 6,
         projects: 20,
@@ -76,7 +76,7 @@ const Skills = () => {
         name: 'C/C++', 
         level: 'Advanced', 
         percentage: 85,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/cpp.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/cpp.png`,
         description: 'Used for high-performance computing, optimization, and low-level system operations.',
         years: 5,
         projects: 15,
@@ -86,7 +86,7 @@ const Skills = () => {
         name: 'JavaScript', 
         level: 'Intermediate', 
         percentage: 75,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/javascript.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/javascript.png`,
         description: 'Used for web development, data visualization, and interactive ML demos.',
         years: 3,
         projects: 8,
@@ -96,7 +96,7 @@ const Skills = () => {
         name: 'Java', 
         level: 'Intermediate', 
         percentage: 70,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/java.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/java.png`,
         description: 'Used for enterprise applications and Android development.',
         years: 4,
         projects: 6,
@@ -108,7 +108,7 @@ const Skills = () => {
         name: 'TensorFlow', 
         level: 'Expert', 
         percentage: 90,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/tensorflow.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/tensorflow.png`,
         description: 'Deep experience optimizing TensorFlow models for various hardware platforms.',
         years: 5,
         projects: 12,
@@ -118,7 +118,7 @@ const Skills = () => {
         name: 'PyTorch', 
         level: 'Expert', 
         percentage: 85,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/pytorch.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/pytorch.png`,
         description: 'Extensive work with PyTorch for research and deployment of deep learning models.',
         years: 4,
         projects: 10,
@@ -128,7 +128,7 @@ const Skills = () => {
         name: 'Scikit-learn', 
         level: 'Expert', 
         percentage: 90,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/scikit-learn.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/scikit-learn.png`,
         description: 'Go-to framework for traditional machine learning algorithms and pipelines.',
         years: 6,
         projects: 15,
@@ -138,7 +138,7 @@ const Skills = () => {
         name: 'oneDAL', 
         level: 'Expert', 
         percentage: 95,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/intel.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/intel.png`,
         description: 'Specialized in optimization of Intel oneDAL library for machine learning workloads.',
         years: 3,
         projects: 5,
@@ -151,7 +151,7 @@ const Skills = () => {
         name: 'Deep Learning', 
         level: 'Expert', 
         percentage: 90,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/deep-learning.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/deep-learning.png`,
         description: 'Expert in neural network architectures, training, and optimization.',
         years: 5,
         projects: 12,
@@ -161,7 +161,7 @@ const Skills = () => {
         name: 'Computer Vision', 
         level: 'Expert', 
         percentage: 90,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/computer-vision.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/computer-vision.png`,
         description: 'Extensive experience with image processing, object detection, and visual recognition.',
         years: 4,
         projects: 10,
@@ -174,7 +174,7 @@ const Skills = () => {
         name: 'Model Quantization', 
         level: 'Expert', 
         percentage: 85,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/quantization.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/quantization.png`,
         description: 'Specialized in reducing model size while preserving accuracy for edge deployment.',
         years: 3,
         projects: 8,
@@ -186,7 +186,7 @@ const Skills = () => {
         name: 'Docker', 
         level: 'Advanced', 
         percentage: 80,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/docker.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/docker.png`,
         description: 'Container management for reproducible development and deployment environments.',
         years: 4,
         projects: 12,
@@ -198,7 +198,7 @@ const Skills = () => {
         name: 'NumPy', 
         level: 'Expert', 
         percentage: 90,
-        logo: `${process.env.PUBLIC_URL}/assets/logos/numpy.svg`,
+        logo: `${process.env.PUBLIC_URL}/assets/images/Tech/numpy.png`,
         description: 'Core numerical computing library used across all data science projects.',
         years: 6,
         projects: 20,
@@ -293,7 +293,7 @@ const Skills = () => {
                         className="skill-logo" 
                         onError={(e) => {
                           e.target.onerror = null;
-                          e.target.src = `${process.env.PUBLIC_URL}/assets/logos/placeholder.svg`;
+                          e.target.src = `${process.env.PUBLIC_URL}/assets/images/Tech/placeholder.png`;
                         }}
                       />
                     </div>
@@ -367,7 +367,7 @@ const Skills = () => {
                     className="modal-skill-logo" 
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src = `${process.env.PUBLIC_URL}/assets/logos/placeholder.svg`;
+                      e.target.src = `${process.env.PUBLIC_URL}/assets/images/Tech/placeholder.png`;
                     }}
                   />
                 </div>

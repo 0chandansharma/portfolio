@@ -21,8 +21,8 @@ const Blog = () => {
       title: 'Step by Step Machine Learning: Linear Regression',
       description: 'Technical & Mathematical Explanation of Linear Regression Algorithm',
       date: 'July 15, 2023',
-      image: '/assets/images/blog/blog1.jpg',
-      link: 'https://medium.com/@deek.sha.rma/step-by-step-machine-learning-linear-regression-712eb215d52f'
+      image: 'assets/images/projects/project1.png',
+      link: 'https://blog-en.fltech.dev/entry/2024/10/25/onedal-arm-ai-oss-framework-acceleration-fujitsu-monaka-en'
     },
     {
       id: 2,

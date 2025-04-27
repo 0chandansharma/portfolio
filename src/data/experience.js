@@ -7,7 +7,7 @@ const workExperience = [
     location: 'Bangalore, India',
     duration: 'July 2023 - Present',
     description: 'Specializing in AI algorithms and library optimization for next-generation supercomputing, focusing on the DC-CPU MONAKA (ARM-SVE-CPU) successor to the FUGAKU Supercomputer.',
-    logo: '/assets/logos/fujitsu.svg', // Add path to company logo
+    logo: '/assets/images/Experience/fuji.png', // Add path to company logo
     link: 'https://www.fujitsu.com/global/about/research/', // Add company website link
     details: [
       'Optimized oneDAL for ARM processor which improved machine learning workload by 10x to 200x',
@@ -30,7 +30,7 @@ const workExperience = [
     location: 'Bangalore, India',
     duration: 'Feb 2022 - June 2023',
     description: 'Worked on Smart Camera Platform with IMX500, the world\'s first Intelligent Vision Sensor with edge processing functionality, enabling high-speed edge AI processing without needing a round trip to a server.',
-    logo: '/assets/logos/sony.svg', // Add path to company logo
+    logo: '/assets/images/Experience/Sony.png', // Add path to company logo
     link: 'https://www.sony.co.in/electronics/support', // Add company website link
     details: [
       'Developed backend services for cloud-based platform to support edge AI device creation and management',
@@ -48,12 +48,35 @@ const workExperience = [
   },
   {
     id: 3,
+    title: 'CTO',
+    company: 'Metashape.ai',
+    location: 'NY, USA',
+    duration: 'Feb 2022 - June 2023',
+    description: 'Build Finace Analysis Platform',
+    logo: '/assets/images/Experience/metashape.png', // Add path to company logo
+    link: 'https://www.sony.co.in/electronics/support', // Add company website link
+    details: [
+      'Developed backend services for cloud-based platform to support edge AI device creation and management',
+      'Implemented efficient benchmarking systems for AI models on IMX500 target devices',
+      'Built robust CICD pipelines using Git actions and Jenkins for microservices deployment',
+      'Optimized AI models for edge deployment through quantization, pruning, and DSP conversion',
+      'Configured camera device farmhouse with servers for IMX500 chips testing and validation',
+      'Received Best Team Award for Smart Camera Platform project contributions',
+      'Created comprehensive documentation and user guides for public release',
+      'Managed AKS Kubernetes deployments for all microservices',
+      'Implemented stringent code quality standards for OSS and SCA compliance'
+    ],
+    technologies: ['Python', 'Edge AI', 'Docker', 'Kubernetes', 'IMX500', 'Computer Vision', 'Model Optimization', 'CICD', 'Git', 'Jenkins'],
+    link: 'https://www.linkedin.com/posts/0chandansharma_sony-activity-7064656892068839424-KIap'
+  },
+  {
+    id: 4,
     title: 'AI Developer',
     company: 'SandLogic Technologies',
     location: 'Bangalore, India',
     duration: 'Sept 2019 - Feb 2022',
     description: 'Led AI solution development across various industries including manufacturing, retail, and healthcare, while mentoring junior team members and participating in strategic pre-sales activities.',
-    logo: '/assets/logos/sandlogic.svg', // Add path to company logo
+    logo: '/assets/images/Experience/sandlogic.png', // Add path to company logo
     link: 'https://www.sandlogic.com/', // Add company website link (replace with actual URL)
     details: [
       'Led team of 15+ developers and provided technical guidance on AI/ML projects',
@@ -79,7 +102,7 @@ const education = [
     location: 'India',
     duration: '2017 - 2019',
     description: 'Specialized in Information Systems with emphasis on clustering algorithms, fuzzy logic, and applications of AI in self-driving vehicles and energy prediction.',
-    logo: '/assets/logos/iit.svg', // Add path to institution logo
+    logo: 'assets/images/Experience/IIT.png', // Add path to institution logo
     link: 'https://www.iitism.ac.in/', // Add institution website link
     details: [
       'Thesis: Determining the optimal number of clusters in Stream data using real-time Fuzzy c-means, optimized with Genetic algorithm',
@@ -101,7 +124,7 @@ const education = [
     location: 'India',
     duration: '2011 - 2015',
     description: 'Gained foundational knowledge in computer science with a focus on software development, mobile applications, and system programming.',
-    logo: '/assets/logos/aktu.svg', // Add path to institution logo
+    logo: 'assets//images/Experience/aktu.png', // Add path to institution logo
     link: 'https://aktu.ac.in/', // Add institution website link
     details: [
       'Thesis Project: Developed "INPUT TO PC" Android application to function as a laptop touchpad',
