@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import useTheme from '../../hooks/useTheme';
+import { useTheme } from '../../context/ThemeProvider';
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
@@ -15,6 +15,7 @@ const ThemeToggle = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5 }}
+      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {theme === 'dark' ? <FaSun /> : <FaMoon />}
     </motion.button>

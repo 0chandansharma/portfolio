@@ -1,5 +1,7 @@
 /* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 /* CSS Variables */
 :root {
@@ -220,7 +222,7 @@ section {
   background: rgba(10, 10, 10, 0.75);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(217, 206, 206, 0.05);
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -256,12 +258,13 @@ section {
   display: flex;
   align-items: center;
   position: relative;
+  gap: 12px;
 }
 
 .logo-icon {
   font-size: 2rem;
   color: var(--primary-color);
-  margin-right: 0.5rem;
+  margin-right: 0.2rem;
   z-index: 2;
   filter: drop-shadow(0 0 8px rgba(58, 85, 232, 0.6));
   transition: all 0.3s ease;
@@ -293,7 +296,84 @@ section {
   background-clip: text;
   letter-spacing: 0.5px;
 }
+/* Signature text styling */
+.signature-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  position: relative;
+  line-height: 1;
+  background: linear-gradient(90deg, var(--text-color) 0%, var(--primary-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: 0.5px;
+}
 
+/* For dark theme */
+.dark-theme .signature-text {
+  background: linear-gradient(90deg, var(--dark-text-color) 0%, var(--primary-color-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated underline */
+.signature-text::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: signatureUnderline 2s ease-in-out forwards;
+}
+
+/* Animation for the signature text to appear as if being written */
+.signature-text {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  animation: signatureReveal 1.5s ease forwards;
+}
+
+/* Animation for the underline */
+@keyframes signatureUnderline {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* Animation for the signature reveal */
+@keyframes signatureReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* Hover effect for the signature */
+.logo:hover .signature-text {
+  filter: brightness(1.2);
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
+
+/* Alternative signature style with Pacifico font */
+.signature-text.pacifico {
+  font-family: 'Pacifico', cursive;
+  font-size: 1.6rem;
+}
 .logo:hover .logo-icon {
   transform: rotate(-10deg);
   color: var(--primary-color-light);
@@ -1369,6 +1449,7 @@ section {
   background-color: var(--dark-bg-color);
   position: relative;
   overflow: hidden;
+  color: var(--dark-text-color-light);
 }
 
 /* Background elements */
@@ -1879,7 +1960,7 @@ section {
 
 .experience-section {
   padding: var(--section-padding) 0;
-  background-color: var(--dark-bg-color);
+  background-color: var(--bg-color);
   position: relative;
 }
 
@@ -2204,7 +2285,7 @@ section {
 }
 
 /* Scroll indicators for horizontal scrolling */
-.experience-cards::before,
+/* .experience-cards::before,
 .experience-cards::after {
   content: '';
   position: absolute;
@@ -2223,7 +2304,7 @@ section {
 .experience-cards::after {
   right: 0;
   background: linear-gradient(to left, var(--dark-bg-color), transparent);
-}
+} */
 
 /* Modal Styles */
 .modal-overlay {
@@ -3083,6 +3164,144 @@ section {
   
   .project-modal-header h2 {
     font-size: 1.5rem;
+  }
+}
+/* Add these styles to your globals.css or a separate stylesheet */
+
+/* Project Screenshots Carousel Styles */
+.project-modal-screenshots {
+  width: 100%;
+  margin-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dark-theme .project-modal-screenshots {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.project-screenshots-swiper {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  max-height: 450px;
+}
+
+.project-screenshot-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.project-screenshot-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-screenshot {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.screenshot-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-screenshot-container:hover .screenshot-caption {
+  opacity: 1;
+}
+
+/* Custom navigation buttons */
+.project-swiper-button-prev,
+.project-swiper-button-next {
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 50% !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+}
+
+.project-swiper-button-prev:hover,
+.project-swiper-button-next:hover {
+  background-color: var(--primary-color) !important;
+  transform: scale(1.1) !important;
+}
+
+.project-swiper-button-prev:after,
+.project-swiper-button-next:after {
+  display: none !important;
+}
+
+/* Pagination bullets */
+.project-screenshots-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.7;
+}
+
+.project-screenshots-swiper .swiper-pagination-bullet-active {
+  background-color: var(--primary-color);
+  opacity: 1;
+}
+
+/* Update modal body for better layout with carousel */
+.project-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 30px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .project-screenshots-swiper {
+    max-height: 350px;
+  }
+  
+  .project-modal-body {
+    padding: 20px;
+  }
+  
+  .project-swiper-button-prev,
+  .project-swiper-button-next {
+    width: 35px !important;
+    height: 35px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-screenshots-swiper {
+    max-height: 250px;
+  }
+  
+  .screenshot-caption {
+    font-size: 0.8rem;
+    padding: 5px 10px;
   }
 }
   

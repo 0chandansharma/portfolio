@@ -93,7 +93,7 @@ const Footer = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
           >
-            © {new Date().getFullYear()} Chandan Sharma. All rights reserved. Made with <FaHeart className="heart-icon" /> and React.
+            © {new Date().getFullYear()} Chandan Sharma. All rights reserved. Made with AI<FaHeart className="brain-icon" /> and Commonsense.
           </motion.p>
         </div>
       </div>
